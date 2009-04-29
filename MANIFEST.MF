@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.1
+Created-By: 10.0-b19 (Sun Microsystems Inc.)
+Main-Class: org.laika.pixpdqadapter.start.PixPdqServer
+Class-Path: lib/axiom-api-1.2.5.jar lib/axiom-dom-1.2.5.jar lib/axiom-
+ impl-1.2.5.jar lib/beepcore.jar lib/beepsasl.jar lib/beeptls-jsse.jar
+  lib/beeptls-ptls.jar lib/braid-base-1.1.jar lib/commons-httpclient-3
+ .0.1.jar lib/commons-logging-1.1.jar lib/hapi-0.5.1.jar lib/jaxb-api.
+ jar lib/jaxb-impl.jar lib/jaxb-libs.jar lib/jaxb-xjc.jar lib/junit-3.
+ 8.1.jar lib/mysql-connector-java-5.0.4.jar lib/log4j-all-1.3alpha-8.j
+ ar lib/relaxngDatatype.jar lib/xsdlib.jar lib/hibernate3.jar lib/dom4
+ j-1.5.2.jar lib/OpenPIXPDQ.jar lib/commons-collections-2.1.1.jar lib/
+ ehcache-1.1.jar lib/cglib-full-2.0.2.jar lib/jta.jar
+X-COMMENT: Main-Class will be added automatically by build
+
