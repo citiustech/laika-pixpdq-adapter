@@ -1,0 +1,133 @@
+
+<!-- The PDQ Server Actor Connections -->
+
+<Configuration>
+    <standardconnection name="misys-pd-supplier">
+        <!--The host name of the PDQ Server-->
+        <hostname>localhost</hostname>
+        <!--The port for PDQ Query transaction-->
+        <port>3601</port>
+        <Identifier name="ReceivingApplication">
+            <NamespaceId>PAT_IDENTITY_X_REF_MGR_MISYSPLC</NamespaceId>
+            <!-- NamespaceId>MESA_PD_SUPPLIER</NamespaceId-->
+        </Identifier>
+        <Identifier name="ReceivingFacility">
+            <NamespaceId>ALLSCRIPTS</NamespaceId>
+            <!-- NamespaceId>XYZ_HOSPITAL</NamespaceId-->
+        </Identifier>
+
+        <!-- If test is true, it will bypass receiving application
+             and receiving facility validation -->
+        <Property name="test" value="true"/>
+
+        <!-- PdSupplierAdapter - required:
+          The java adapter class that provides the patient data source for this Patient Demographics Supplier 
+          This class must implement org.openhealthexchange.openpixpdq.ihe.IPdSupplierAdapter -->
+        <Property name="PdSupplierAdapter" value="org.laika.pixpdqadapter.PdSupplierAdapter" />  
+        
+        <!-- storeLogger - optional :
+            The java adapter class that persists messages of this Pix Manager (optional).
+            This class must implement org.openhealthexchange.openpixpdq.ihe.log.IMessageStoreLogger -->
+         <Property name="storeLogger" value="org.openhealthexchange.messagestore.service.MessageStoreService" />  
+
+        <!-- Configuration file for each client domains -->
+	    <includefile name="PixPdqClientDomains.xml" />
+
+        <!--QueryProperties - (PropertySet) optional:
+             This set of properties specifies global characteristics of the PDQ
+             server over this connection.  The allowed parts are:
+                 WildcardAfter - (String) optional: Specifies the wildcard value this connection
+             expects at the end of a value.  If this value is not supplied, it defaults to *.
+                 WildcardBefore - (String) optional: Specifies the wildcard value this connection
+             expects at the end of a value.   If this value is not supplied, it defaults to *.
+                 PaginationByOpenPIXPDQ (boolean) optional: If value=true, pagination is handled in
+             by OpenPIXPDQ, otherwise by pluggable EMPI. If this value is not supplier, it defaults
+             to true. 
+                 ContinuationPointerTimeout - (Long) optional: Specifies the timeout in milliseconds
+             of a continuation pointer.  Defaults to 600000 milliseconds(10 minutes). This property
+             is used only when PaginationByOpenPIXPDQ is set to true.
+              -->
+        <PropertySet name="QueryProperties">
+            <Entry name="WildcardBefore" value="*"/>
+            <Entry name="WildcardAfter" value="*"/>
+            <Entry name="PaginationByOpenPIXPDQ" value="true"/>
+            <Entry name="ContinuationPointerTimeout" value="600000"/>
+        </PropertySet>
+
+        <!--DateTimeFormat -(PropertySet) optional:
+             BirthdateFormat - (String) optional: Specifies the format of birthdate this connection
+         expects for a birthdate field.   If this value is not supplied, it defaults to "yyyyMMdd".
+        -->
+        <PropertySet name="DateTimeFormat">
+            <Entry name="Birthdate" value="yyyyMMdd"/>
+        </PropertySet>
+
+    </standardconnection>
+
+    <secureconnection name="misys-secure-pd-supplier">
+        <!--The host name of the PDQ Server-->
+        <hostname>localhost</hostname>
+        <!--The port for PDQ Query transaction-->
+        <port>3710</port>
+        <Identifier name="ReceivingApplication">
+            <NamespaceId>PAT_IDENTITY_X_REF_MGR_MISYSPLC</NamespaceId>
+        </Identifier>
+        <Identifier name="ReceivingFacility">
+            <NamespaceId>ALLSCRIPTS</NamespaceId>
+        </Identifier>
+
+        <!-- If test is true, it will bypass receiving application
+             and receiving facility validation -->
+        <Property name="test" value="true"/>
+
+        <!-- PdSupplierAdapter - required:
+          The java adapter class that provides the patient data source for this Patient Demographics Supplier 
+          This class must implement org.openhealthexchange.openpixpdq.ihe.IPdSupplierAdapter -->
+        <Property name="PdSupplierAdapter" value="org.laika.pixpdqadapter.PdSupplierAdapter" />  
+        
+        <!-- storeLogger - optional :
+            The java adapter class that persists messages of this Pix Manager (optional).
+            This class must implement org.openhealthexchange.openpixpdq.ihe.log.IMessageStoreLogger -->
+         <Property name="storeLogger" value="org.openhealthexchange.messagestore.service.MessageStoreService" />  
+
+        <!-- Configuration file for each client domains -->
+	    <includefile name="PixPdqClientDomains.xml" />
+
+        <!--QueryProperties - (PropertySet) optional:
+             This set of properties specifies global characteristics of the PDQ
+             server over this connection.  The allowed parts are:
+                 WildcardAfter - (String) optional: Specifies the wildcard value this connection
+             expects at the end of a value.  If this value is not supplied, it defaults to *.
+                 WildcardBefore - (String) optional: Specifies the wildcard value this connection
+             expects at the end of a value.   If this value is not supplied, it defaults to *.
+                 PaginationByOpenPIXPDQ (boolean) optional: If value=true, pagination is handled in
+             by OpenPIXPDQ, otherwise by pluggable EMPI. If this value is not supplier, it defaults
+             to true. 
+                 ContinuationPointerTimeout - (Long) optional: Specifies the timeout in milliseconds
+             of a continuation pointer.  Defaults to 600000 milliseconds(10 minutes). This property
+             is used only when PaginationByOpenPIXPDQ is set to true.
+              -->
+        <PropertySet name="QueryProperties">
+            <Entry name="WildcardBefore" value="*"/>
+            <Entry name="WildcardAfter" value="*"/>
+            <Entry name="PaginationByOpenPIXPDQ" value="true"/>
+            <Entry name="ContinuationPointerTimeout" value="600000"/>
+        </PropertySet>
+
+        <!--DateTimeFormat -(PropertySet) optional:
+             BirthdateFormat - (String) optional: Specifies the format of birthdate this connection
+         expects for a birthdate field.   If this value is not supplied, it defaults to "yyyyMMdd".
+        -->
+        <PropertySet name="DateTimeFormat">
+            <Entry name="Birthdate" value="yyyyMMdd"/>
+        </PropertySet>
+
+ 		<!-- Trust and Keystore -->
+	    <KEYSTORE>certs/OpenPIXPDQ_2009_KEY.p12</KEYSTORE>
+	    <KEYPASS>password</KEYPASS>
+	    <TRUSTSTORE>certs/OpenPIXPDQ_2009_STORE.jks</TRUSTSTORE>
+	    <TRUSTPASS>password</TRUSTPASS>
+
+    </secureconnection>
+
+</Configuration>

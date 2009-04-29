@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- The PIX Manager Actor Connections -->
+
+<Configuration>
+    <standardconnection name="misys-pix-manager">
+        <!--The host name of the PIX Manager Server-->
+        <hostname>localhost</hostname>
+        <!--The port for PIX Query transaction-->
+        <port>3600</port>
+        <Identifier name="ReceivingApplication">
+            <NamespaceId>LAIKA</NamespaceId>
+        </Identifier>
+        <Identifier name="ReceivingFacility">
+            <NamespaceId>CCHIT</NamespaceId>
+        </Identifier>
+     
+        <!-- If test is true, it will by pass some receiving application
+             and receiving facility validation -->
+        <Property name="test" value="true"/>
+
+        <!-- pixManagerAdapter - required :
+            The java adapter class that provides the patient data source for this Pix Manager (required).
+            This class must implement org.openhealthexchange.openpixpdq.ihe.IPixManagerAdapter -->
+         <Property name="pixManagerAdapter" value="org.laika.pixpdqadapter.PixManagerAdapter" />  
+
+        <!-- storeLogger - optional :
+            The java adapter class that persists messages of this Pix Manager (optional).
+            This class must implement org.openhealthexchange.openpixpdq.ihe.log.IMessageStoreLogger -->
+         <Property name="storeLogger" value="org.openhealthexchange.messagestore.service.MessageStoreService" />  
+
+        <!-- Configuration file for each client domains -->
+	    <includefile name="PixPdqClientDomains.xml" />
+    </standardconnection>
+
+    <secureconnection name="misys-secure-pix-manager">
+        <!--The host name of the PIX Manager Server-->
+        <hostname>localhost</hostname>
+        <!--The port for PIX Query transaction-->
+        <port>3610</port>
+        <Identifier name="ReceivingApplication">
+            <NamespaceId>LAIKA</NamespaceId>
+        </Identifier>
+        <Identifier name="ReceivingFacility">
+            <NamespaceId>CCHIT</NamespaceId>
+        </Identifier>
+     
+        <!-- If test is true, it will by pass some receiving application
+             and receiving facility validation -->
+        <Property name="test" value="true"/>
+
+        <!-- pixManagerAdapter - required :
+            The java adapter class that provides the patient data source for this Pix Manager (required) -->
+        <Property name="pixManagerAdapter" value="org.laika.pixpdqadapter.PixManagerAdapter" />
+            
+        <!-- Configuration file for each client domains -->
+	    <includefile name="PixPdqClientDomains.xml" />
+
+ 		<!-- Trust and Keystore -->
+ 		<!-- Used by Connectathon 2009 --> 
+	    <KEYSTORE>certs/OpenPIXPDQ_2009_KEY.p12</KEYSTORE>
+	    <KEYPASS>password</KEYPASS>
+	    <TRUSTSTORE>certs/OpenPIXPDQ_2009_STORE.jks</TRUSTSTORE>
+	    <TRUSTPASS>password</TRUSTPASS>
+	     
+ 		<!-- Used by Mesa Tests 
+	    <KEYSTORE>certs/mesa_keystore1_2009.p12</KEYSTORE>
+	    <KEYPASS>password</KEYPASS>
+	    <TRUSTSTORE>certs/mesa_truststore_2009.jks</TRUSTSTORE>
+	    <TRUSTPASS>password</TRUSTPASS>
+	     -->
+    </secureconnection>
+
+</Configuration>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!--Note: This file is the starting point of All the Actor configuration;
+     all other config files should be linked from here. -->
+
+<!--Each configuration file has a root Configuration tag-->
+<Configuration>
+
+    <!--Defines the configuration of Audit Repository Server for Audit Client-->
+    <connectionfile file="AuditRepositoryConnections.xml" />
+    <!--Defines the configuration of local system as PD Supplier-->
+    <connectionfile file="PdSupplierConnections.xml" />
+    <!--Defines the configuration of local system as PIX Manager-->
+    <connectionfile file="PixManagerConnections.xml" />
+    <!--Defines the configuration of PIX Consumers-->
+    <connectionfile file="PixConsumerConnections.xml" />
+    <!--The PIX Manager actor configuration-->
+    <actor name="pixman" type="PixManager">
+      <description>Misys PIX Manager</description>
+      <connection source="misys-pix-manager" />
+      <!--Define 0 or more PIX Consumers that subscribe to PIX Update Notification -->
+      <pixconsumer connection="test1" />
+      <pixconsumer connection="test2" />
+    </actor>
+
+    <!--The PD Supplier actor configuration-->
+    <actor name="pdsup" type="PdSupplier">
+      <description>Misys PD Supplier</description>
+      <connection source="misys-pd-supplier" />
+    </actor>
+    
+ 	<!-- Audit Repository Actor -->
+	<actor name="auditmesa" type="SecureNode">
+		<description>MESA AUDIT TRAILS</description>
+        <audittrail consumer="mesa_arr_bsd" />
+        <audittrail consumer="log4j_audittrail" />
+	</actor>
+ 
+    <actor name="localaudit" type="SecureNode">
+		<description>LOCAL AUDIT</description>
+		<audittrail consumer="log4j_audittrail" />
+	</actor>
+
+ </Configuration>

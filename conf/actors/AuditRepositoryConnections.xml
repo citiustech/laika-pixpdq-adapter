@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- The Audit Record Repository Actor Connections -->
+<!-- For IHE Actor Test -->
+
+<Configuration>
+
+	<standardconnection name="log4j_audittrail">
+		<Property name="TYPE" value="LOG4J LOGGER" />
+		<PropertySet name="localhost">
+            <entry name="MACHINENAME" value="allscripts4" />
+            <entry name="HOSTNAME" value="allscripts4" />
+            <entry name="IP" value="10.242.0.1" />
+            <entry name="SITE" value="ALLSCRIPTS" />
+            <entry name="SOURCE" value="ALLSCRIPTS" />
+            <entry name="APPNAME" value="PAT_IDENTITY_X_REF_MGR_MISYS" />
+            <entry name="FACILITY" value="ALLSCRIPTS" />
+		</PropertySet>
+		<propertyset name="ParticipantObject">
+			<entry name="PatientNameEncoding" value="HL7" />
+			<entry name="PatientIdEncoding" value="HL7" />
+		</propertyset>
+    <!--  <Identifier name="LocalAssigningAuthority">
+			<NamespaceId>Test</NamespaceId>
+			<UniversalId>1.2.3.4.5</UniversalId>
+			<UniversalIdType>ISO</UniversalIdType>
+        </Identifier>
+        <Identifier name="AssigningAuthority">
+			<NamespaceId>Test</NamespaceId>
+			<UniversalId>1.2.3.4.5</UniversalId>
+			<UniversalIdType>ISO</UniversalIdType>
+        </Identifier>
+     -->   
+	</standardconnection>
+	
+	<standardconnection name="mesa_arr_bsd">
+		<hostname>localhost</hostname>
+		<port>10288</port>
+		<Property name="TYPE" value="BSD SYSLOG" />
+		<PropertySet name="localhost">
+            <entry name="MACHINENAME" value="allscripts4" />
+            <entry name="HOSTNAME" value="allscripts4" />
+            <entry name="IP" value="10.242.0.2" />
+            <entry name="SITE" value="ALLSCRIPTS" />
+            <entry name="SOURCE" value="ALLSCRIPTS" />
+            <entry name="APPNAME" value="PAT_IDENTITY_X_REF_MGR_MISYS" />
+            <entry name="FACILITY" value="ALLSCRIPTS" />
+			<!--entry value="AENAME=ER_MISYS" name="AENAME"/-->
+		</PropertySet>
+		<propertyset name="ParticipantObject">
+			<entry name="PatientNameEncoding" value="HL7" />
+			<entry name="PatientIdEncoding" value="HL7" />
+		</propertyset>
+	</standardconnection>
+
+    <secureconnection name="ALLSCRIPTS-SECURE">
+		<hostname>localhost</hostname>
+		<port>4300</port>
+		<Property name="NAME" value="mesa-test" />
+		<Property name="URLPATH" value="./index" />
+		<PropertySet name="localhost">
+            <entry name="MACHINENAME" value="allscripts4" />
+            <entry name="HOSTNAME" value="allscripts4" />
+            <entry name="IP" value="10.242.0.3" />
+            <entry name="SITE" value="ALLSCRIPTS" />
+            <entry name="SOURCE" value="ALLSCRIPTS" />
+            <entry name="APPNAME" value="PAT_IDENTITY_X_REF_MGR_MISYS" />
+            <entry name="FACILITY" value="ALLSCRIPTS" />
+		</PropertySet>
+		<propertyset name="ParticipantObject">
+			<entry name="PatientNameEncoding" value="HL7" />
+			<entry name="PatientIdEncoding" value="HL7" />
+		</propertyset>
+ 		<!-- Trust and Keystore -->
+	    <KEYSTORE>certs/mesa_keystore1_2009.p12</KEYSTORE>
+	    <KEYPASS>password</KEYPASS>
+	    <TRUSTSTORE>certs/mesa_truststore_2009.jks</TRUSTSTORE>
+	    <TRUSTPASS>password</TRUSTPASS>
+	</secureconnection>
+	
+
+</Configuration>

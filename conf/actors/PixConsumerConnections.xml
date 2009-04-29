@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- The PIX Consumer Connections for PIX Update Notification Transaction -->
+
+<Configuration>
+    <standardconnection name="test1">
+        <!--The host name of the PIX Consumer-->
+        <hostname>localhost</hostname>
+        <!--The port for PIX Update Notification-->
+        <port>3600</port>
+        <Identifier name="SendingApplication">
+            <NamespaceId>PAT_IDENTITY_X_REF_MGR_MISYS</NamespaceId>
+        </Identifier>
+        <Identifier name="SendingFacility">
+            <NamespaceId>ALLSCRIPTS</NamespaceId>
+        </Identifier>
+        <Identifier name="ReceivingApplication">
+            <NamespaceId>LAIKA</NamespaceId>
+        </Identifier>
+        <Identifier name="ReceivingFacility">
+            <NamespaceId>CCHIT</NamespaceId>
+        </Identifier>
+    </standardconnection>
+
+    <standardconnection name="test2">
+        <hostname>localhost</hostname>
+        <port>3600</port>
+        <Identifier name="SendingApplication">
+            <NamespaceId>PAT_IDENTITY_X_REF_MGR_MISYS</NamespaceId>
+        </Identifier>
+        <Identifier name="SendingFacility">
+            <NamespaceId>ALLSCRIPTS</NamespaceId>
+        </Identifier>
+        <Identifier name="ReceivingApplication">
+            <NamespaceId>LAIKA</NamespaceId>
+        </Identifier>
+        <Identifier name="ReceivingFacility">
+            <NamespaceId>CCHIT</NamespaceId>
+        </Identifier>
+    </standardconnection>
+
+</Configuration>
