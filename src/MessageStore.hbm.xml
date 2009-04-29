@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="org.openhealthexchange.openpixpdq.ihe.log.MessageStore" table="messagelog">
+	   <id name="id" type="string" column="ID" >
+	   <generator class="uuid"/>
+	  </id>
+ 		<property name="ip" column="IP" type="string"/>
+        <property name="inMessage" column="INMESSAGE" type="text"/>
+        <property name="outMessage" column="OUTMESSAGE" type="text"/>
+        <property name="messageDate" column="MESSAGEDATE" type="timestamp"/>
+        <property name="messageId" column="MESSAGEID" type="string" />
+        <property name="errorMessage" column="ERRORMESSAGE" type="string"/>
+        <property name="messageCode" column="MESSAGECODE" type="string"/>
+        <property name="triggerEvent" column="TRIGGEREVENT" type="string" />
+        <property name="sendingFacility" column="SENDINGFACILITY" type="string"/>
+        <property name="sendingApplication" column="SENDINGAPPLICATION" type="string"/>
+        <property name="receivingFacility" column="RECEIVINGFACILITY" type="string"/>
+        <property name="receivingApplication" column="RECEIVINGAPPLICATION" type="string"/>
+    </class>     
+</hibernate-mapping>
