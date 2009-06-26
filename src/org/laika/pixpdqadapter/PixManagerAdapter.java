@@ -34,9 +34,9 @@ public class PixManagerAdapter implements IPixManagerAdapter {
 
 //        boolean flag = false;
 //
-//        String sql = "SELECT count(*) patient_data_id " +
+//        String sql = "SELECT count(*) patient_id " +
 //                "FROM patient_identifiers " +
-//                "where identifier_domain_identifier in ('" +
+//                "where affinity_domain in ('" +
 //                pid.getAssigningAuthority().getAuthorityNameString() +
 //                "', '" + pid.getAssigningAuthority().getNamespaceId() +
 //                "', '&" + pid.getAssigningAuthority().getUniversalId() + "&" +
@@ -70,11 +70,11 @@ public class PixManagerAdapter implements IPixManagerAdapter {
 
         List patientList = new ArrayList();
 
-        String sql = "SELECT distinct patient_data_id " +
-                "from patient_identifiers pi, vendor_test_plans vtp, patient_data pd, kinds kd " +
-                "where pi.patient_data_id = pd.id and pd.vendor_test_plan_id = vtp.id " +
+        String sql = "SELECT distinct patient_id " +
+                "from patient_identifiers pi, vendor_test_plans vtp, patients pd, kinds kd " +
+                "where pi.patient_id = pd.id and pd.vendor_test_plan_id = vtp.id " +
                 "and vtp.kind_id = kd.id and kd.test_type = 'PIX' and kd.name = 'Query' " +
-                "and identifier_domain_identifier in ('" +
+                "and affinity_domain in ('" +
                 pid.getAssigningAuthority().getAuthorityNameString() +
                 "', '" + pid.getAssigningAuthority().getNamespaceId() +
                 "', '&" + pid.getAssigningAuthority().getUniversalId() + "&" +
@@ -91,9 +91,9 @@ public class PixManagerAdapter implements IPixManagerAdapter {
 
             try {
                 // select all patient identifiers and idi for the patient
-                sql = "SELECT patient_identifier, identifier_domain_identifier " +
+                sql = "SELECT patient_identifier, affinity_domain " +
                         "FROM patient_identifiers " +
-                        "where patient_data_id = " + patientID;
+                        "where patient_id = " + patientID;
 
                 log.log(Level.INFO, "SQL to select id and idi for found patient: " + sql);
 
@@ -102,9 +102,9 @@ public class PixManagerAdapter implements IPixManagerAdapter {
 
                 while (rsPatient.next()) {
                     log.log(Level.INFO, "Patient ID : " + rsPatient.getString("patient_identifier") + "; " +
-                            "Patient IDI: " + rsPatient.getString("identifier_domain_identifier"));
+                            "Patient IDI: " + rsPatient.getString("affinity_domain"));
 
-                    String[] identHD = rsPatient.getString("identifier_domain_identifier").split("&");
+                    String[] identHD = rsPatient.getString("affinity_domain").split("&");
 
                     Identifier identifier = null;
 
@@ -168,7 +168,7 @@ public class PixManagerAdapter implements IPixManagerAdapter {
         String sql;
 
         //select patient data id
-        sql = "select pd.id patient_data_id from patient_data pd , vendor_test_plans vp, kinds kd " +
+        sql = "select pd.id patient_id from patients pd , vendor_test_plans vp, kinds kd " +
                 "where pd.vendor_test_plan_id = vp.id and vp.kind_id = kd.id " +
                 "and vp.kind_id = kd.id and kd.test_type = 'PIX' and kd.name = 'Feed' " +
                 "and lower(pd.name) = lower('" + first_name +
@@ -188,8 +188,8 @@ public class PixManagerAdapter implements IPixManagerAdapter {
 
             //check if id exists in db
             sql = "select count(*) cnt FROM patient_identifiers " +
-                    "where patient_data_id = " + patientID +
-                    " and identifier_domain_identifier ='" + idi + "' " +
+                    "where patient_id = " + patientID +
+                    " and affinity_domain ='" + idi + "' " +
                     "and patient_identifier ='" + pat_id + "'";
 
             log.log(Level.INFO, "SQL to check for existing ID and IDI: " + sql);
@@ -203,7 +203,7 @@ public class PixManagerAdapter implements IPixManagerAdapter {
                     if (rsPatient.getInt("cnt") == 0) {
 
                         //insert identifier into db
-                        sql = "insert into patient_identifiers(patient_data_id, identifier_domain_identifier, " +
+                        sql = "insert into patient_identifiers(patient_id, affinity_domain, " +
                                 "patient_identifier) " +
                                 "values(" + patientID + ", '" + idi + "', '" + pat_id + "')";
 
@@ -233,7 +233,7 @@ public class PixManagerAdapter implements IPixManagerAdapter {
                 DbUtils.getInstance().executeQuery(sql);
         try {
             while (rsPatient.next()) {
-                patientId = rsPatient.getInt("patient_data_id");
+                patientId = rsPatient.getInt("patient_id");
                 log.log(Level.INFO, "Found PatientId: " + patientId);
                 break;
 

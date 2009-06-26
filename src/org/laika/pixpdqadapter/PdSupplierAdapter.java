@@ -30,7 +30,7 @@ import org.openhealthexchange.openpixpdq.ihe.pdq.PdqResult;
  * @author abhijeetl
  */
 public class PdSupplierAdapter implements IPdSupplierAdapter {
-    private static final String IDENTIFIER_DOMAIN_IDENTIFIER = "identifier_domain_identifier";
+    private static final String IDENTIFIER_DOMAIN_IDENTIFIER = "affinity_domain";
     private static final String IN_ = " in ";
     private static final String LIKE_ = " LIKE ";
 
@@ -54,8 +54,8 @@ public class PdSupplierAdapter implements IPdSupplierAdapter {
     private static final String AND_ = " and ";
     private static final String ADDRESS1 = "street_address_line_one";
     private static final String ADDRESS2 = "street_address_line_two";
-    private static final String ASSIGNING_AUTHORITY = "identifier_domain_identifier";
-    private static final String PATIENT_INFO_ID = "patient_data_id";
+    private static final String ASSIGNING_AUTHORITY = "affinity_domain";
+    private static final String PATIENT_INFO_ID = "patient_id";
     private static final String PERSON_IDENTIFIER = "patient_identifier";
     private static final String CITY = "city";
     private static final String DATE_OF_BIRTH = "date_of_birth";
@@ -75,23 +75,23 @@ public class PdSupplierAdapter implements IPdSupplierAdapter {
             "pn.name_suffix, ad.street_address_line_one, " +
             "ad.street_address_line_two, ad.city, ad.state, " +
             "ad.postal_code, cn.name contry, gn.name gender, " +
-            "ms.name maritial_status, ri.date_of_birth, ri.person_identifier, " +
+            "ms.name maritial_status, ri.date_of_birth, ri.affinity_domain_id, " +
             "re.name religion, ra.name race, et.name ethinicity, " +
             "tp.home_phone, tp.work_phone, tp.mobile_phone, " +
             "tp.vacation_home_phone, tp.email, tp.url " +
             "FROM " +
-            "patient_data pd, addresses ad, iso_countries cn, " +
+            "patients pd, addresses ad, iso_countries cn, " +
             "registration_information ri, genders gn, person_names pn, " +
             "patient_identifiers pi, marital_statuses ms, religions re, " +
             "races ra, ethnicities et, telecoms tp, vendor_test_plans vtp, " +
             "kinds ki " +
             "where " +
             "pd.id = ad.addressable_id and ad.iso_country_id = cn.id and " +
-            "pd.id = ri.patient_data_id and ri.gender_id = gn.id and " +
+            "pd.id = ri.patient_id and ri.gender_id = gn.id and " +
             "ms.id = ri.marital_status_id and re.id = ri.religion_id and " +
             "ra.id = ri.race_id and et.id = ri.ethnicity_id and " +
             "tp.reachable_id = pd.id and pn.nameable_id <= pd.id and " +
-            "pd.id = pi.patient_data_id and pd.vendor_test_plan_id IS NOT NULL " +
+            "pd.id = pi.patient_id and pd.vendor_test_plan_id IS NOT NULL " +
             "and pd.vendor_test_plan_id = vtp.id and vtp.kind_id = ki.id and " +
             "ki.name = 'Query' and ki.test_type='PDQ' ";
 
@@ -181,7 +181,7 @@ public class PdSupplierAdapter implements IPdSupplierAdapter {
         List<PatientIdentifier> patientIds = new ArrayList<PatientIdentifier>();
         try {
             PatientIdentifier patientId = new PatientIdentifier();
-            patientId.setId(rs.getString("person_identifier"));
+            patientId.setId(rs.getString("affinity_domain_id"));
             patientIds.add(patientId);
 
             String sql = SELECT__FROM_PERSON_IDENTIFIERS + PATIENT_INFO_ID + " = " + rs.getInt("id");
