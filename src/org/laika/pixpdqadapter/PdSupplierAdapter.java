@@ -36,10 +36,10 @@ public class PdSupplierAdapter implements IPdSupplierAdapter {
 
     private static final String ORDER_BY = " order by pd.id desc";
     private static final String PATIENT_IDENTIFIER = "patient_identifier";
-    private static final String STATE = "state";
+    private static final String STATE = "ad.state";
     private static final Logger log =
             Logger.getLogger(PdSupplierAdapter.class.getName());
-    private static final String CONTRY = "contry";
+    private static final String CONTRY = "ad.contry";
     private static final String CCONTRY = "cn.name";
     private static final String ETHINICITY = "ethinicity";
     private static final String FEMALE = "F";
@@ -52,12 +52,12 @@ public class PdSupplierAdapter implements IPdSupplierAdapter {
     private static final String PREFIX = "name_prefix";
     private static final String OTHER = "UN";
     private static final String AND_ = " and ";
-    private static final String ADDRESS1 = "street_address_line_one";
-    private static final String ADDRESS2 = "street_address_line_two";
+    private static final String ADDRESS1 = "ad.street_address_line_one";
+    private static final String ADDRESS2 = "ad.street_address_line_two";
     private static final String ASSIGNING_AUTHORITY = "affinity_domain";
     private static final String PATIENT_INFO_ID = "patient_id";
     private static final String PERSON_IDENTIFIER = "patient_identifier";
-    private static final String CITY = "city";
+    private static final String CITY = "ad.city";
     private static final String DATE_OF_BIRTH = "date_of_birth";
     private static final String GENDER_ID = "gn.code";
     private static final String GENDERSCODE = "gender";
@@ -65,7 +65,7 @@ public class PdSupplierAdapter implements IPdSupplierAdapter {
     private static final String WORK_PHONE = "work_phone";
     private static final String FIRST_NAME = "first_name";
     private static final String LAST_NAME = "last_name";
-    private static final String POSTAL_CODE = "postal_code";
+    private static final String POSTAL_CODE = "ad.postal_code";
     private static final String RACE = "race";
     private static final String RELIGION = "religion";
     private static final String SELECT__FROM_PERSON_IDENTIFIERS = "SELECT * FROM patient_identifiers WHERE ";
@@ -83,17 +83,15 @@ public class PdSupplierAdapter implements IPdSupplierAdapter {
             "patients pd, addresses ad, iso_countries cn, " +
             "registration_information ri, genders gn, person_names pn, " +
             "patient_identifiers pi, marital_statuses ms, religions re, " +
-            "races ra, ethnicities et, telecoms tp, vendor_test_plans vtp, " +
-            "kinds ki " +
+            "races ra, ethnicities et, telecoms tp, test_plans vtp " +
             "where " +
             "pd.id = ad.addressable_id and ad.iso_country_id = cn.id and " +
             "pd.id = ri.patient_id and ri.gender_id = gn.id and " +
             "ms.id = ri.marital_status_id and re.id = ri.religion_id and " +
             "ra.id = ri.race_id and et.id = ri.ethnicity_id and " +
             "tp.reachable_id = pd.id and pn.nameable_id <= pd.id and " +
-            "pd.id = pi.patient_id and pd.vendor_test_plan_id IS NOT NULL " +
-            "and pd.vendor_test_plan_id = vtp.id and vtp.kind_id = ki.id and " +
-            "ki.name = 'Query' and ki.test_type='PDQ' ";
+            "pd.id = pi.patient_id and pd.test_plan_id IS NOT NULL " +
+            "and pd.test_plan_id = vtp.id and vtp.type = 'PDQ Query' ";
 
     /**
      *  The PdqSupplierAdapter is the source that provides patient data for a PdSupplier.
@@ -168,8 +166,9 @@ public class PdSupplierAdapter implements IPdSupplierAdapter {
                 patient.setPatientIds(listPatientIdentifier(rs));
                 retList.add(patient);
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             log.log(Level.ERROR, "SQLException: " + ex.getMessage());
+            //ex.printStackTrace();
         } finally{
             DbUtils.getInstance().closeConnection();
         }
