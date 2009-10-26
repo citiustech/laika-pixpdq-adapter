@@ -39,9 +39,9 @@ public class PdSupplierAdapter implements IPdSupplierAdapter {
     private static final String STATE = "ad.state";
     private static final Logger log =
             Logger.getLogger(PdSupplierAdapter.class.getName());
-    private static final String CONTRY = "ad.contry";
+    private static final String COUNTRY = "country";
     private static final String CCONTRY = "cn.name";
-    private static final String ETHINICITY = "ethinicity";
+    private static final String ETHNICITY = "ethnicity";
     private static final String FEMALE = "F";
     private static final String HOME_PHONE = "home_phone";
     private static final String LOWER = "lower(";
@@ -74,9 +74,9 @@ public class PdSupplierAdapter implements IPdSupplierAdapter {
             "pd.id, pn.name_prefix, pn.first_name, pn.last_name, " +
             "pn.name_suffix, ad.street_address_line_one, " +
             "ad.street_address_line_two, ad.city, ad.state, " +
-            "ad.postal_code, cn.name contry, gn.name gender, " +
+            "ad.postal_code, cn.name country, gn.name gender, " +
             "ms.name maritial_status, ri.date_of_birth, ri.affinity_domain_id, " +
-            "re.name religion, ra.name race, et.name ethinicity, " +
+            "re.name religion, ra.name race, et.name ethnicity, " +
             "tp.home_phone, tp.work_phone, tp.mobile_phone, " +
             "tp.vacation_home_phone, tp.email, tp.url " +
             "FROM " +
@@ -91,7 +91,7 @@ public class PdSupplierAdapter implements IPdSupplierAdapter {
             "ra.id = ri.race_id and et.id = ri.ethnicity_id and " +
             "tp.reachable_id = pd.id and pn.nameable_id <= pd.id and " +
             "pd.id = pi.patient_id and pd.test_plan_id IS NOT NULL " +
-            "and pd.test_plan_id = vtp.id and vtp.type = 'PDQ Query' ";
+            "and pd.test_plan_id = vtp.id and vtp.type = 'PdqQueryPlan' ";
 
     /**
      *  The PdqSupplierAdapter is the source that provides patient data for a PdSupplier.
@@ -161,7 +161,7 @@ public class PdSupplierAdapter implements IPdSupplierAdapter {
                 patient.setMaritalStatus(rs.getString(MARITIAL_STATUS));
                 patient.setReligion(rs.getString(RELIGION));
                 patient.setRace(rs.getString(RACE));
-                patient.setEthnicGroup(rs.getString(ETHINICITY));
+                patient.setEthnicGroup(rs.getString(ETHNICITY));
                 patient.setPhoneNumbers(listPhoneNumber(rs));
                 patient.setPatientIds(listPatientIdentifier(rs));
                 retList.add(patient);
@@ -285,7 +285,7 @@ public class PdSupplierAdapter implements IPdSupplierAdapter {
             address2 = rs.getString(ADDRESS2);
             city = rs.getString(CITY);
             postal_code = rs.getString(POSTAL_CODE);
-            country = rs.getString(CONTRY);
+            country = rs.getString(COUNTRY);
 
             Address address = new Address();
             address.setAddLine1(address1);
