@@ -71,7 +71,7 @@ public class PixManagerAdapter implements IPixManagerAdapter {
         List patientList = new ArrayList();
 
         String sql = "SELECT distinct patient_id " + "from patient_identifiers pi, test_plans vtp, patients pd "
-			+ "where pd.test_plan_id = vtp.id and vtp.type = 'PixQueryPlan' "
+			+ "where pd.id = pi.patient_id and pd.test_plan_id = vtp.id and vtp.type = 'PixQueryPlan' "
 			+ "and affinity_domain in ('" + pid.getAssigningAuthority().getAuthorityNameString() + "', '"
 			+ pid.getAssigningAuthority().getNamespaceId() + "', '&" + pid.getAssigningAuthority().getUniversalId()
 			+ "&" + pid.getAssigningAuthority().getUniversalIdType() + "') and patient_identifier = '"
